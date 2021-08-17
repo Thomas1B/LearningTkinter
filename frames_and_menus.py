@@ -25,12 +25,17 @@ def hide():
     my_frame.grid_forget()
 
 def new():
+    hide_menu_frames()
     file_frame.grid(row=1, column=0, columnspan=2, padx=20, pady=20)
 
 def cut():
+    hide_menu_frames()
     edit_frame.grid(row=1, column=0, columnspan=2, padx=20, pady=20)
 
 
+def hide_menu_frames():
+    edit_frame.grid_forget()
+    file_frame.grid_forget()
 
 
 
