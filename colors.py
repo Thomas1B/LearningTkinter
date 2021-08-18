@@ -26,6 +26,7 @@ root.iconbitmap("Album1/sun_image.ico")
 def color():
     color = colorchooser.askcolor() # returns a tuple: ((r,g,b), hex-color-code)
     Label(root, text=color).pack()
+    Label(root, text="You picked a color!", font = ("Bold", 12), bg = color[1]).pack()
 
 
 
