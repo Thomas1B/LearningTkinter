@@ -15,7 +15,6 @@ root.iconbitmap("Album1/sun_image.ico")
 
 from tkinter import filedialog # need to open files.
 
-msg = Label(root)
 # Submit function
 def submit():
     global row
