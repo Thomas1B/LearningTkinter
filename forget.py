@@ -23,6 +23,7 @@ def submit():
     msg = Label(root, text="Hello " + e.get() + "!")
     msg.grid(row=row, column=0)
     msg_list.append(msg)
+    e.delete(0, END) # clears Entry of text
     row+=1
 
 
@@ -30,6 +31,7 @@ def submit():
 msg_list = []
 def clear():
     global msg_list
+    e.delete(0, END) # clears Entry of text
     for msg in msg_list:
         msg.grid_forget()
 
@@ -41,7 +43,7 @@ label.grid(row=0, column=0, columnspan=2, padx=10)
 e = Entry(root)
 e.grid(row=1, column=0, padx=10, columnspan=2)
 
-row = 3
+row = 3 # default row to print message, see submit().
 btn = Button(root, text= "Submit", command = submit).grid(row=2, column=0, pady=5)
 btn_clear = Button(root, text= "Clear Screen", command = clear).grid(row=2, column=1, pady=5)
 
