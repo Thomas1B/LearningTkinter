@@ -19,7 +19,7 @@ returned_tupled[1] = string of hex-colorcode
 root = Tk()
 root.title("Learning TKinter - Colors")
 root.geometry("{}x{}".format(600,400))
-root.iconbitmap("C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/exe/sun_image.ico")
+root.iconbitmap("sun_image.ico")
 
 
 

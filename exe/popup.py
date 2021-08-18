@@ -9,7 +9,7 @@ from tkinter import *
 root = Tk()
 root.title("Learning TKinter - Intro to Pop Up Message Boxes")
 root.geometry("{}x{}".format(400,400))
-root.iconbitmap("C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/exe/sun_image.ico")
+root.iconbitmap("sun_image.ico")
 
 
 '''
