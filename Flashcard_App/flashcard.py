@@ -28,14 +28,22 @@ def add_correct(a, b): # Checking if Addition is correct.
     # Updating Output Message depending if the given answer is correct.
     global add_answer
     if int(add_answer.get()) == correct:
-        text = "{} is Correct!".format(add_answer.get())
+        text = "{}+{} = {} is Correct!".format(a,b,add_answer.get())
         add_correct_label.config(text=text, font = ("bold", 32))
     else:
-        text = "{} is Incorrect!{} Try Again!".format(add_answer.get(), "\n\n")
+        text = "{}+{} = {} is Incorrect!{} Try Again!".format(a,b,add_answer.get(), "\n\n")
         add_correct_label.config(text=text, font = ("bold", 32))
 
 
+    # Creating a new question if the given answer was correct.
+    if int(add_answer.get()) == correct:
+        num1.set(r.randint(0,10))
+        num2.set(r.randint(0,10))
+        text = "{}+{} = ?".format(num1.get(),num2.get())
+        question_label.config(text=text)
 
+    # Clearing answer box.
+    add_answer.delete(0, "end")
 
 # Functioning for menu items
 
@@ -48,7 +56,7 @@ def add(): # Addition Function
     global num2
     num1 = IntVar()
     num2 = IntVar()
-    num1.set(r.randint(0,10)) # random numbers
+    num1.set(r.randint(0,10))
     num2.set(r.randint(0,10))
 
     # Creating Question label
