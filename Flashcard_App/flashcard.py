@@ -20,7 +20,7 @@ main_menu = Menu(root)
 root.config(menu = main_menu)
 
 
-# Functions to check if the answers given are correct.
+# ************* Functions to check if the answers given are correct. *************
 
 def add_correct(a, b): # Checking if Addition is correct.
     correct = a + b
@@ -127,7 +127,7 @@ def divide_correct(a, b): # Checking if Division is correct.
 
 
 
-# Functioning for menu items
+# ************* Functioning for menu items *************
 
 def add(): # Addition Function
     hide_frames()
@@ -161,9 +161,6 @@ def add(): # Addition Function
     text = "Enter the Answer!" # default text
     add_correct_label = Label(add_frame, text=text, font = ("bold", 16))
     add_correct_label.pack(pady=5)
-
-
-
 
 
 
@@ -260,7 +257,6 @@ def divide(): # Division Function
     divide_answer = Entry(divide_frame)
     divide_answer.pack(pady=5)
 
-    # Using unicode
     Label(divide_frame, text = "Round to 3 decimal places if needed").pack()
 
     # Button to submit answer
@@ -277,16 +273,20 @@ def divide(): # Division Function
 
 def hide_frames(): # Hide Function
 
-    for widget in add_frame.winfo_children(): # clearing add_frame of widgets
+    for widget in add_frame.winfo_children():
+        # clearing add_frame of widgets
         widget.destroy()
 
-    for widget in subtract_frame.winfo_children(): # clearing subtract_frame of widgets
+    for widget in subtract_frame.winfo_children():
+        # clearing subtract_frame of widgets
         widget.destroy()
 
-    for widget in multiply_frame.winfo_children(): # clearing multiply_frame of widgets
+    for widget in multiply_frame.winfo_children():
+        # clearing multiply_frame of widgets
         widget.destroy()
 
-    for widget in divide_frame.winfo_children(): # clearing divide_frame of widgets
+    for widget in divide_frame.winfo_children():
+        # clearing divide_frame of widgets
         widget.destroy()
 
     # Clearing the frames.
@@ -304,7 +304,7 @@ def hide_frames(): # Hide Function
 
 
 
-# # menu items
+# ************* Creating Main Menu items *************
 math_menu = Menu(main_menu)
 main_menu.add_cascade(label="MathCards", menu=math_menu)
 math_menu.add_command(label="Addition", command=add)
