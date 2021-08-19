@@ -98,8 +98,8 @@ def add(): # Addition Function
     add_answer.pack(pady=5)
 
     # Button to submit answer
-    add_btn = Button(add_frame, text = "Answer!", command = lambda: add_correct(num1.get(), num2.get()))
-    add_btn.pack(pady=10)
+    btn = Button(add_frame, text = "Answer!", command = lambda: add_correct(num1.get(), num2.get()))
+    btn.pack(pady=10)
 
     # Creating Output Message label, see add_correct().
     global add_correct_label
@@ -136,8 +136,8 @@ def subtract(): # Subtraction Function
     subtract_answer.pack(pady=5)
 
     # Button to submit answer
-    subtract_btn = Button(subtract_frame, text = "Answer!", command = lambda: subtract_correct(num1.get(), num2.get()))
-    subtract_btn.pack(pady=10)
+    btn = Button(subtract_frame, text = "Answer!", command = lambda: subtract_correct(num1.get(), num2.get()))
+    btn.pack(pady=10)
 
     # Creating Output Message label, see subtract_correct().
     global subtract_correct_label
@@ -173,6 +173,10 @@ def hide_frames(): # Hide Function
         widget.destroy()
 
     # Clearing the frames.
+    '''
+    If a new flashcard is selected (from the menu), this allows the question label to shown
+    where the original label was. "Overwrites the label"
+    '''
     add_frame.pack_forget()
     subtract_frame.pack_forget()
     multiply_frame.pack_forget()
