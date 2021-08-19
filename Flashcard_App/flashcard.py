@@ -46,7 +46,6 @@ def add_correct(a, b): # Checking if Addition is correct.
     add_answer.delete(0, "end")
 
 
-
 def subtract_correct(a, b): # Checking if Subtraction is correct.
     correct = a - b
 
@@ -69,6 +68,8 @@ def subtract_correct(a, b): # Checking if Subtraction is correct.
 
     # Clearing answer box.
     subtract_answer.delete(0, "end")
+
+
 
 
 # Functioning for menu items
@@ -97,7 +98,6 @@ def add(): # Addition Function
     add_answer.pack(pady=5)
 
     # Button to submit answer
-    global add_btn
     add_btn = Button(add_frame, text = "Answer!", command = lambda: add_correct(num1.get(), num2.get()))
     add_btn.pack(pady=10)
 
@@ -159,6 +159,20 @@ def divide(): # Division Function
 
 
 def hide_frames(): # Hide Function
+
+    for widget in add_frame.winfo_children(): # clearing add_frame of widgets
+        widget.destroy()
+
+    for widget in subtract_frame.winfo_children(): # clearing subtract_frame of widgets
+        widget.destroy()
+
+    for widget in multiply_frame.winfo_children(): # clearing multiply_frame of widgets
+        widget.destroy()
+
+    for widget in divide_frame.winfo_children(): # clearing divide_frame of widgets
+        widget.destroy()
+
+    # Clearing the frames.
     add_frame.pack_forget()
     subtract_frame.pack_forget()
     multiply_frame.pack_forget()
