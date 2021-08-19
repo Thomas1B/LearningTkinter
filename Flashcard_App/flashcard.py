@@ -25,21 +25,31 @@ root.config(menu = main_menu)
 
 # Functioning for menu items
 
-def add():
-    pass
+def add(): # Addition Function
+    hide_frames()
+    add_frame.pack(fill="both", expand=1)
 
 
-def subtract():
-    pass
+def subtract(): # Subtraction Function
+    hide_frames()
+    subtract_frame.pack(fill="both", expand=1)
 
-def multiply():
-    pass
-
-def divide():
-    pass
-
+def multiply(): # Mutliplication Function
+    hide_frames()
+    multiply_frame.pack(fill="both", expand=1)
 
 
+
+def divide(): # Division Function
+    hide_frames()
+    divide_frame.pack(fill="both", expand=1)
+
+
+def hide_frames(): # Hide Function
+    add_frame.pack_forget()
+    subtract_frame.pack_forget()
+    multiply_frame.pack_forget()
+    divide_frame.pack_forget()
 
 
 
@@ -57,6 +67,11 @@ math_menu.add_separator()
 math_menu.add_command(label="Exit Program", command=root.quit)
 
 
+# Creating math Frames
+add_frame = Frame(root, width=400, height=400, bg="blue")
+subtract_frame = Frame(root, width=400, height=400, bg="red")
+multiply_frame = Frame(root, width=400, height=400, bg="yellow")
+divide_frame = Frame(root, width=400, height=400, bg="green")
 
 
 
