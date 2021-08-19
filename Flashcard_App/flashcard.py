@@ -24,19 +24,20 @@ root.config(menu = main_menu)
 
 def add_correct(a, b): # Checking if Addition is correct.
     correct = a + b
+    check = False # check for creating a new question
 
     # Updating Output Message depending if the given answer is correct.
     global add_answer
     if int(add_answer.get()) == correct:
         text = "{}+{} = {} is Correct!".format(a,b,add_answer.get())
         add_correct_label.config(text=text, font = ("bold", 32))
+        check = True
     else:
         text = "{}+{} = {} is Incorrect!{} Try Again!".format(a,b,add_answer.get(), "\n\n")
         add_correct_label.config(text=text, font = ("bold", 32))
 
-
     # Creating a new question if the given answer was correct.
-    if int(add_answer.get()) == correct:
+    if check:
         num1.set(r.randint(0,10))
         num2.set(r.randint(0,10))
         text = "{}+{} = ?".format(num1.get(),num2.get())
@@ -46,21 +47,23 @@ def add_correct(a, b): # Checking if Addition is correct.
     add_answer.delete(0, "end")
 
 
+
 def subtract_correct(a, b): # Checking if Subtraction is correct.
     correct = a - b
+    check = False # check for creating a new question
 
     # Updating Output Message depending if the given answer is correct.
     global subtract_answer
     if int(subtract_answer.get()) == correct:
         text = "{}-{} = {} is Correct!".format(a,b,subtract_answer.get())
         subtract_correct_label.config(text=text, font = ("bold", 32))
+        check = True
     else:
         text = "{}-{} = {} is Incorrect!{} Try Again!".format(a,b,subtract_answer.get(), "\n\n")
         subtract_correct_label.config(text=text, font = ("bold", 32))
 
-
     # Creating a new question if the given answer was correct.
-    if int(subtract_answer.get()) == correct:
+    if check:
         num1.set(r.randint(0,10))
         num2.set(r.randint(0,10))
         text = "{}-{} = ?".format(num1.get(),num2.get())
@@ -70,21 +73,23 @@ def subtract_correct(a, b): # Checking if Subtraction is correct.
     subtract_answer.delete(0, "end")
 
 
+
 def multiply_correct(a, b): # Checking if Mutliplication is correct.
     correct = a * b
+    check = False # check for creating a new question
 
     # Updating Output Message depending if the given answer is correct.
     global multiply_answer
     if int(multiply_answer.get()) == correct:
-        text = "{}+{} = {} is Correct!".format(a, b, multiply_answer.get())
+        text = "{}x{} = {} is Correct!".format(a, b, multiply_answer.get())
         multiply_correct_label.config(text=text, font = ("bold", 32))
+        check = True
     else:
-        text = "{}+{} = {} is Incorrect!{} Try Again!".format(a, b, multiply_answer.get(), "\n\n")
+        text = "{}x{} = {} is Incorrect!{} Try Again!".format(a, b, multiply_answer.get(), "\n\n")
         multiply_correct_label.config(text=text, font = ("bold", 32))
-
 
     # Creating a new question if the given answer was correct.
-    if int(multiply_answer.get()) == correct:
+    if check:
         num1.set(r.randint(0,10))
         num2.set(r.randint(0,10))
         text = "{}x{} = ?".format(num1.get(),num2.get())
@@ -94,21 +99,23 @@ def multiply_correct(a, b): # Checking if Mutliplication is correct.
     multiply_answer.delete(0, "end")
 
 
+
 def divide_correct(a, b): # Checking if Division is correct.
     correct = round(a / b, 3)
+    check = False # check for creating a new question
 
     # Updating Output Message depending if the given answer is correct.
     global divide_answer
     if float(divide_answer.get()) == correct:
         text = "{}/{} = {} is Correct!".format(a,b,divide_answer.get())
         divide_correct_label.config(text=text, font = ("bold", 32))
+        check = True
     else:
         text = "{}/{} = {} is Incorrect!{} Try Again!".format(a, b, divide_answer.get(), "\n\n")
         divide_correct_label.config(text=text, font = ("bold", 32))
 
-
     # Creating a new question if the given answer was correct.
-    if float(divide_answer.get()) == correct:
+    if check:
         num1.set(r.randint(0,10))
         num2.set(r.randint(1,10))
         text = "{}/{} = ?".format(num1.get(),num2.get())
