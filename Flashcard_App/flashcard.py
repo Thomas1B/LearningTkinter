@@ -70,6 +70,30 @@ def subtract_correct(a, b): # Checking if Subtraction is correct.
     subtract_answer.delete(0, "end")
 
 
+def multiply_correct(a, b): # Checking if Mutliplication is correct.
+    correct = a * b
+
+    # Updating Output Message depending if the given answer is correct.
+    global multiply_answer
+    if int(multiply_answer.get()) == correct:
+        text = "{}+{} = {} is Correct!".format(a, b, multiply_answer.get())
+        multiply_correct_label.config(text=text, font = ("bold", 32))
+    else:
+        text = "{}+{} = {} is Incorrect!{} Try Again!".format(a, b, multiply_answer.get(), "\n\n")
+        multiply_correct_label.config(text=text, font = ("bold", 32))
+
+
+    # Creating a new question if the given answer was correct.
+    if int(multiply_answer.get()) == correct:
+        num1.set(r.randint(0,10))
+        num2.set(r.randint(0,10))
+        text = "{}x{} = ?".format(num1.get(),num2.get())
+        question_label.config(text=text)
+
+    # Clearing answer box.
+    multiply_answer.delete(0, "end")
+
+
 
 
 # Functioning for menu items
@@ -150,6 +174,35 @@ def subtract(): # Subtraction Function
 def multiply(): # Mutliplication Function
     hide_frames()
     multiply_frame.pack(fill="both", expand=1)
+
+    # Creating random numbers.
+    global num1
+    global num2
+    num1 = IntVar()
+    num2 = IntVar()
+    num1.set(r.randint(0,10))
+    num2.set(r.randint(0,10))
+
+    # Creating Question label
+    global question_label
+    text = "{}x{} = ?".format(num1.get(),num2.get())
+    question_label = Label(multiply_frame, text=text, font = ('Helvetica', 32))
+    question_label.pack()
+
+    # Creating Entry box
+    global multiply_answer
+    multiply_answer = Entry(multiply_frame)
+    multiply_answer.pack(pady=5)
+
+    # Button to submit answer
+    btn = Button(multiply_frame, text = "Answer!", command = lambda: multiply_correct(num1.get(), num2.get()))
+    btn.pack(pady=10)
+
+    # Creating Output Message label, see add_correct().
+    global multiply_correct_label
+    text = "Enter the Answer!" # default text
+    multiply_correct_label = Label(multiply_frame, text=text, font = ("bold", 16))
+    multiply_correct_label.pack(pady=5)
 
 
 
