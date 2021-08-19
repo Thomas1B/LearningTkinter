@@ -94,6 +94,30 @@ def multiply_correct(a, b): # Checking if Mutliplication is correct.
     multiply_answer.delete(0, "end")
 
 
+def divide_correct(a, b): # Checking if Division is correct.
+    correct = round(a / b, 3)
+
+    # Updating Output Message depending if the given answer is correct.
+    global divide_answer
+    if float(divide_answer.get()) == correct:
+        text = "{}/{} = {} is Correct!".format(a,b,divide_answer.get())
+        divide_correct_label.config(text=text, font = ("bold", 32))
+    else:
+        text = "{}/{} = {} is Incorrect!{} Try Again!".format(a, b, divide_answer.get(), "\n\n")
+        divide_correct_label.config(text=text, font = ("bold", 32))
+
+
+    # Creating a new question if the given answer was correct.
+    if float(divide_answer.get()) == correct:
+        num1.set(r.randint(0,10))
+        num2.set(r.randint(1,10))
+        text = "{}/{} = ?".format(num1.get(),num2.get())
+        question_label.config(text=text)
+
+    # Clearing answer box.
+    divide_answer.delete(0, "end")
+
+
 
 
 # Functioning for menu items
@@ -209,6 +233,39 @@ def multiply(): # Mutliplication Function
 def divide(): # Division Function
     hide_frames()
     divide_frame.pack(fill="both", expand=1)
+
+    # Creating random numbers.
+    global num1
+    global num2
+    num1 = IntVar()
+    num2 = IntVar()
+    num1.set(r.randint(0,10))
+    num2.set(r.randint(1,10))
+
+    # Creating Question label
+    global question_label
+    text = "{}/{} = ?".format(num1.get(),num2.get())
+    question_label = Label(divide_frame, text=text, font = ('Helvetica', 32))
+    question_label.pack()
+
+    # Creating Entry box
+    global divide_answer
+    divide_answer = Entry(divide_frame)
+    divide_answer.pack(pady=5)
+
+    # Using unicode
+    Label(divide_frame, text = "Round to 3 decimal places if needed").pack()
+
+    # Button to submit answer
+    btn = Button(divide_frame, text = "Answer!", command = lambda: divide_correct(num1.get(), num2.get()))
+    btn.pack(pady=10)
+
+    # Creating Output Message label, see add_correct().
+    global divide_correct_label
+    text = "Enter the Answer!" # default text
+    divide_correct_label = Label(divide_frame, text=text, font = ("bold", 16))
+    divide_correct_label.pack(pady=5)
+
 
 
 def hide_frames(): # Hide Function
