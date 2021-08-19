@@ -19,12 +19,13 @@ root.iconbitmap("globe.ico")
 main_menu = Menu(root)
 root.config(menu = main_menu)
 
+
 # Functions to check if the answers given are correct.
 
-def add_correct(a, b):
+def add_correct(a, b): # Checking if Addition is correct.
     correct = a + b
 
-    # Output Message to display
+    # Updating Output Message depending if the given answer is correct.
     global add_answer
     if int(add_answer.get()) == correct:
         text = "{} is Correct!".format(add_answer.get())
@@ -66,9 +67,10 @@ def add(): # Addition Function
     add_btn = Button(add_frame, text = "Answer!", command = lambda: add_correct(num1.get(), num2.get()))
     add_btn.pack(pady=10)
 
-    # Correct or Incorrect message
+    # Creating Output Message label, see add_correct().
     global add_correct_label
-    add_correct_label = Label(add_frame, text = "Enter the Answer!", font = ("bold", 16))
+    text = "Enter the Answer!" # default text
+    add_correct_label = Label(add_frame, text=text, font = ("bold", 16))
     add_correct_label.pack(pady=5)
 
 
