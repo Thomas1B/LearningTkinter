@@ -35,11 +35,11 @@ def add_correct(a, b): # Checking if Addition is correct.
     # Updating Output Message depending if the given answer is correct.
     global add_answer
     if int(add_answer.get()) == correct:
-        text = "{}+{} = {} is Correct!".format(a,b,add_answer.get())
+        text = "{}+{} = {} is Correct!\n\n".format(a,b,add_answer.get())
         add_correct_label.config(text=text, font = ("bold", 18))
         check = True
     else:
-        text = "{}+{} = {} is Incorrect!{} Try Again!".format(a,b,add_answer.get(), "\n\n")
+        text = "{}+{} = {} is Incorrect!\n\n Try Again!\n\n".format(a,b,add_answer.get())
         add_correct_label.config(text=text, font = ("bold", 18))
 
     # Creating a new question if the given answer was correct.
@@ -59,11 +59,11 @@ def subtract_correct(a, b): # Checking if Subtraction is correct.
     # Updating Output Message depending if the given answer is correct.
     global subtract_answer
     if int(subtract_answer.get()) == correct:
-        text = "{}-{} = {} is Correct!".format(a,b,subtract_answer.get())
+        text = "{}-{} = {} is Correct!\n\n".format(a,b,subtract_answer.get())
         subtract_correct_label.config(text=text, font = ("bold", 18))
         check = True
     else:
-        text = "{}-{} = {} is Incorrect!{} Try Again!".format(a,b,subtract_answer.get(), "\n\n")
+        text = "{}-{} = {} is Incorrect!\n\n Try Again!\n\n".format(a,b,subtract_answer.get())
         subtract_correct_label.config(text=text, font = ("bold", 18))
 
     # Creating a new question if the given answer was correct.
@@ -83,11 +83,11 @@ def multiply_correct(a, b): # Checking if Mutliplication is correct.
     # Updating Output Message depending if the given answer is correct.
     global multiply_answer
     if int(multiply_answer.get()) == correct:
-        text = "{}x{} = {} is Correct!".format(a, b, multiply_answer.get())
+        text = "{}x{} = {} is Correct!\n\n".format(a, b, multiply_answer.get())
         multiply_correct_label.config(text=text, font = ("bold", 18))
         check = True
     else:
-        text = "{}x{} = {} is Incorrect!{} Try Again!".format(a, b, multiply_answer.get(), "\n\n")
+        text = "{}x{} = {} is Incorrect!\n\n Try Again!\n\n".format(a, b, multiply_answer.get())
         multiply_correct_label.config(text=text, font = ("bold", 18))
 
     # Creating a new question if the given answer was correct.
@@ -107,11 +107,11 @@ def divide_correct(a, b): # Checking if Division is correct.
     # Updating Output Message depending if the given answer is correct.
     global divide_answer
     if float(divide_answer.get()) == correct:
-        text = "{}/{} = {} is Correct!".format(a,b,divide_answer.get())
+        text = "{}/{} = {} is Correct!\n\n".format(a,b,divide_answer.get())
         divide_correct_label.config(text=text, font = ("bold", 18))
         check = True
     else:
-        text = "{}/{} = {} is Incorrect!{} Try Again!".format(a, b, divide_answer.get(), "\n\n")
+        text = "{}/{} = {} is Incorrect!\n\n Try Again!\n\n".format(a, b, divide_answer.get())
         divide_correct_label.config(text=text, font = ("bold", 18))
 
     # Creating a new question if the given answer was correct.
@@ -155,12 +155,16 @@ def add(): # Addition Function
 
     # Creating Output Message label, see add_correct().
     global add_correct_label
-    text = "Enter the Answer!" # default text
+    text = "Enter the Answer!\n\n" # default text, \n\n for button layout.
     add_correct_label = Label(add_frame, text=text, font = ("bold", 16), bg='light blue')
     add_correct_label.pack(pady=5)
 
+    # Refresh Question
+    refresh_btn = Button(add_frame, text = "Refresh Question", overrelief=SUNKEN, command=add, padx=12, pady=5).pack(anchor=S, pady=5)
+
+
     # Button to go back to the home screen.
-    home_btn = Button(add_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(pady=60, ipadx=5, ipady=5)
+    home_btn = Button(add_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(ipadx=5, ipady=5)
 
 def subtract(): # Subtraction Function
     hide_frames()
@@ -190,12 +194,15 @@ def subtract(): # Subtraction Function
 
     # Creating Output Message label, see subtract_correct().
     global subtract_correct_label
-    text = "Enter the Answer!" # default text
+    text = "Enter the Answer!\n\n" # default text, \n\n for button layout.
     subtract_correct_label = Label(subtract_frame, text=text, font = ("bold", 16), bg='light blue')
     subtract_correct_label.pack(pady=5)
 
+    # Refresh Question
+    refresh_btn = Button(subtract_frame, text = "Refresh Question", overrelief=SUNKEN, command=subtract, padx=12, pady=5).pack(anchor=S, pady=5)
+
     # Button to go back to the home screen.
-    home_btn = Button(subtract_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(pady=60, ipadx=5, ipady=5)
+    home_btn = Button(subtract_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(ipadx=5, ipady=5)
 
 def multiply(): # Mutliplication Function
     hide_frames()
@@ -225,12 +232,15 @@ def multiply(): # Mutliplication Function
 
     # Creating Output Message label, see add_correct().
     global multiply_correct_label
-    text = "Enter the Answer!" # default text
+    text = "Enter the Answer!\n\n" # default text
     multiply_correct_label = Label(multiply_frame, text=text, font = ("bold", 16), bg='light blue')
     multiply_correct_label.pack(pady=5)
 
+    # Refresh Question
+    refresh_btn = Button(multiply_frame, text = "Refresh Question", overrelief=SUNKEN, command=multiply, padx=12, pady=5).pack(anchor=S, pady=5)
+
     # Button to go back to the home screen.
-    home_btn = Button(multiply_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(pady=60, ipadx=5, ipady=5)
+    home_btn = Button(multiply_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(ipadx=5, ipady=5)
 
 def divide(): # Division Function
     hide_frames()
@@ -262,12 +272,15 @@ def divide(): # Division Function
 
     # Creating Output Message label, see add_correct().
     global divide_correct_label
-    text = "Enter the Answer!" # default text
+    text = "Enter the Answer!\n\n" # default text
     divide_correct_label = Label(divide_frame, text=text, font = ("bold", 16), bg='light blue')
     divide_correct_label.pack(pady=5)
 
+    # Refresh Question
+    refresh_btn = Button(divide_frame, text = "Refresh Question", overrelief=SUNKEN, command=divide, padx=12, pady=5).pack(anchor=S, pady=5)
+
     # Button to go back to the home screen.
-    home_btn = Button(divide_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(pady=60, ipadx=5, ipady=5)
+    home_btn = Button(divide_frame, text="Go to Home Screen", overrelief=SUNKEN, command = start_screen).pack(ipadx=5, ipady=5)
 
 def hide_frames(): # Hide Function
 
