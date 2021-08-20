@@ -4,7 +4,6 @@ os.system("clear")
 # ************* Making a flashcard app *************
 
 from tkinter import *
-# from PIL import ImageTk, Image
 import random as r
 
 #################################################################
@@ -15,15 +14,16 @@ def start_screen(): # Function for the Screen screen
     hide_frames()
     start_frame.pack(fill="both", expand=1)
     text="Welcome to Math Flashcards!"
-    start_label = Label(start_frame, text=text, font=("Helvetica", 20, "bold"), relief=SUNKEN, fg='black', bg='gold', bd=10, padx=10, pady=15)
+    # start_label = Label(start_frame, text=text, font=("Helvetica", 20, "bold"), relief=SUNKEN, fg='black', bg='gold', bd=10, padx=10, pady=15)
+    start_label = Label(start_frame, text=text, font=("Times", 30, "bold"), fg='black', bg='light blue', padx=10, pady=15)
     start_label.pack(pady=30)
 
     # Buttons
-    add_btn = Button(start_frame, text="Addition Flashcards", overrelief=SUNKEN, command=add).pack(ipadx=14,ipady=5)
-    subtract_btn = Button(start_frame, text="Subtraction Flashcards", overrelief=SUNKEN, command=subtract).pack(ipadx=6, ipady=5)
-    multiply_btn = Button(start_frame, text="Mutliplication Flashcards", overrelief=SUNKEN, command=multiply).pack(ipady=5)
-    divide_btn = Button(start_frame, text="Division Flashcards", overrelief=SUNKEN, command=divide).pack(ipadx=16, ipady=5)
-    quit_btn = Button(start_frame, text = "Quit Flashcard", overrelief=SUNKEN, command=root.quit).pack(pady=10, ipadx=28, ipady=5)
+    add_btn = Button(start_frame, text="Addition Flashcards", overrelief=SUNKEN, font=("Helvetica", 15), command=add).pack(ipadx=21,ipady=5)
+    subtract_btn = Button(start_frame, text="Subtraction Flashcards", overrelief=SUNKEN, font=("Helvetica", 15), command=subtract).pack(ipadx=6, ipady=5)
+    multiply_btn = Button(start_frame, text="Mutliplication Flashcards", overrelief=SUNKEN, font=("Helvetica", 15), command=multiply).pack(ipady=5)
+    divide_btn = Button(start_frame, text="Division Flashcards", overrelief=SUNKEN, font=("Helvetica", 15), command=divide).pack(ipadx=23, ipady=5)
+    quit_btn = Button(start_frame, text="Quit Flashcards", overrelief=SUNKEN, font=("Helvetica", 15), command=root.quit).pack(pady=60, ipadx=37, ipady=5)
 
 
 # ************* Functions to check if the answers given are correct. *************
@@ -296,11 +296,11 @@ def hide_frames(): # Hide Function
 
 
 #################################################################
-# Creating the root Screen.
 
+# Creating the root Screen.
 root = Tk()
 root.title("Learning TKinter - Flashcard")
-root.geometry("{}x{}".format(600,500))
+root.geometry("{}x{}".format(600,550))
 root.iconbitmap("globe.ico")
 
 # Creating Main Menu
