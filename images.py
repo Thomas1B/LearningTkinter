@@ -16,8 +16,10 @@ root.iconbitmap("Album1/sun_image.ico")
 
 from PIL import ImageTk, Image
 
-img = ImageTk.PhotoImage(Image.open("Album1/Brisk1.png"))
-img_label = Label(image = img).pack(pady=10)
+# img1 = ImageTk.PhotoImage(Image.open("Album1/Brisk1.png"))
+img2 = PhotoImage(file="Album1/Brisk2.png")
+# img_label1 = Label(image = img1).pack(pady=10)
+img_label = Label(image = img2).pack(pady=10)
 
 
 
