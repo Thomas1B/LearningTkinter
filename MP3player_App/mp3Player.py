@@ -6,9 +6,22 @@ os.system("clear") # clears terminal
 from tkinter import *
 from tkinter import filedialog as fd
 import pygame as pg # for mp3 files
+pg.mixer.init() # Initalizing pygame
 
-# Initalizing pygame
-pg.mixer.init()
+##################### Global Variables #####################
+
+# Global variable to hold filepath where mp3 files are stored.
+# Using String format() Method.
+global music_filepath
+music_filepath = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/{}.mp3"
+
+# Global variable to hold parts that need to be stripped, see add_song() and add_songs.
+global replace_part1
+replace_part1 = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/"
+
+# Creating Pause variable, see pause().
+global paused
+paused = False
 
 ##################### Functions #####################
 
@@ -16,7 +29,7 @@ def add_song(): # adds a song to the playlist
     new_song = fd.askopenfilename(initialdir="music/", title="MP3 Player - Adding One Song", filetypes=(("Mp3 Files","*.mp3"), ))
 
     # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
-    new_song = new_song.replace("C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/", "")
+    new_song = new_song.replace(replace_part1, "")
     new_song = new_song.replace(".mp3", "")
     playlist_box.insert(END, new_song)
 
@@ -25,7 +38,7 @@ def add_songs(): # adds many songs to the playlist
 
     # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
     for song in new_songs:
-        song = song.replace("C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/", "")
+        song = song.replace(replace_part1, "")
         song = song.replace(".mp3", "")
         playlist_box.insert(END, song)
 
@@ -44,17 +57,13 @@ def play(is_paused): # Plays the Song
         paused = False
     else:
         song = playlist_box.get(ACTIVE)
-        song = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/{}.mp3".format(song)
+        song = music_filepath.format(song)
         pg.mixer.music.load(song)
         pg.mixer.music.play()
 
 def stop(): # Stops the Song
     pg.mixer.music.stop()
     playlist_box.selection_clear(ACTIVE)
-
-# Creating Pause variable, see pause().
-global paused
-paused = False
 
 def pause(is_paused): # Pauses the Song
     global paused
@@ -67,8 +76,11 @@ def pause(is_paused): # Pauses the Song
         pg.mixer.music.pause()# Pause
         paused = True
 
+def next_song(): # Goes to the next song
+    pass
 
-
+def prev_song(): # Goes to the previous song
+    pass
 
 ##################### Main Program #####################
 
@@ -96,8 +108,8 @@ media_frame.pack(pady=20)
 
 # Creating Media Control Buttons
 play_btn = Button(media_frame, image=play_img, overrelief=SUNKEN, bd=0, command=lambda: play(paused))
-forward_btn = Button(media_frame, image=forward_img, overrelief=SUNKEN, bd=0)
-back_btn = Button(media_frame, image=back_img, overrelief=SUNKEN, bd=0)
+forward_btn = Button(media_frame, image=forward_img, overrelief=SUNKEN, bd=0, command = next_song)
+back_btn = Button(media_frame, image=back_img, overrelief=SUNKEN, bd=0, command = prev_song)
 pause_btn = Button(media_frame, image=pause_img, overrelief=SUNKEN, bd=0, command= lambda: pause(paused))
 stop_btn = Button(media_frame, image=stop_img, overrelief=SUNKEN, bd=0, command=stop)
 
