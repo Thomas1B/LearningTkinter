@@ -18,7 +18,13 @@ def add_song(): # adds a song to the playlist
     playlist_box.insert(END, new_song)
 
 def add_many_songs(): # adds many songs to the playlist
-    pass
+    new_songs = fd.askopenfilenames(initialdir="music/", title="MP3 Player - Adding One Song", filetypes=(("Mp3 Files","*.mp3"), ))
+
+    # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
+    for song in new_songs:
+        song = song.replace("C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/", "")
+        song = song.replace(".mp3", "")
+        playlist_box.insert(END, song)
 
 
 
