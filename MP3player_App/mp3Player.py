@@ -4,12 +4,18 @@ import os
 os.system("clear") # clears terminal
 
 from tkinter import *
-# from PIL import ImageTk, Image
+from tkinter import filedialog as fd
+
 
 ##################### Functions #####################
 
 def add_song(): # adds a song to the playlist
-    pass
+    new_song = fd.askopenfilename(initialdir="music/", title="MP3 Player - Adding One Song", filetypes=(("Mp3 Files","*.mp3"), ))
+
+    # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
+    new_song = new_song.replace("C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/", "")
+    new_song = new_song.replace(".mp3", "")
+    playlist_box.insert(END, new_song)
 
 def add_many_songs(): # adds many songs to the playlist
     pass
@@ -32,7 +38,7 @@ back_img = PhotoImage(file="images/skip_start.png")
 stop_img = PhotoImage(file="images/stop.png")
 
 # Creating Playlist box
-playlist_box = Listbox(root, bg="black", fg="green", width=60)
+playlist_box = Listbox(root, bg="black", fg="green", width=60, selectbackground="green", selectforeground="black")
 playlist_box.pack(pady=20)
 
 # Creating Media Control Frame
@@ -62,7 +68,9 @@ main_menu.add_cascade(label="Add Songs", menu=add_song_menu)
 add_song_menu.add_command(label="Add one Song to the Playlist", command=add_song) # adds one song to the playlist.
 add_song_menu.add_command(label="Add Many Songs to the Playlist", command=add_many_songs) # adds many songs to the playlist.
 
-
+# Temporary Label
+my_label = Label(root, text="")
+my_label.pack(pady=20)
 
 
 
