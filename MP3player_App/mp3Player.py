@@ -78,8 +78,12 @@ def pause(is_paused): # Pauses the Song
 
 def next_song(): # Goes to the next song
     # getting the current song, returns a tuble of location (pos,)
-    cur_song = playlist_box.curselection()
-    next_song = cur_song[0]+1 # getting the next song's pos
+    cur_song = playlist_box.curselection()[0]
+    next_song = cur_song+1 # getting the next song's pos
+
+    # if the current song is the last in the playlist, goes back to the first.
+    if (next_song >= playlist_box.size()):
+        next_song = 0
 
     # reconstructing song filepath
     song = playlist_box.get(next_song)
