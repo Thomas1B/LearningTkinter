@@ -99,7 +99,27 @@ def next_song(): # Goes to the next song
     playlist_box.selection_set(next_song)
 
 def prev_song(): # Goes to the previous song
-    pass
+
+    # getting the current song, returns a tuble of location (pos,)
+    cur_song = playlist_box.curselection()[0]
+    next_song = cur_song-1 # getting the next song's pos
+
+    # if the current song is the first in the playlist, goes back to the last.
+    if (next_song < 0):
+        next_song = playlist_box.size()-1
+
+    # reconstructing song filepath
+    song = playlist_box.get(next_song)
+    song = music_filepath.format(song)
+
+    # Loading song then play it.
+    pg.mixer.music.load(song)
+    pg.mixer.music.play()
+
+    # Updating bar in playlist
+    playlist_box.selection_clear(0, END)
+    playlist_box.activate(next_song)
+    playlist_box.selection_set(next_song)
 
 ##################### Main Program #####################
 
