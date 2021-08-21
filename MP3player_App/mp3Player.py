@@ -41,6 +41,9 @@ def play(): # Plays the Song
     pg.mixer.music.load(song)
     pg.mixer.music.play()
 
+def stop(): # Stops the Song
+    pg.mixer.music.stop()
+    playlist_box.selection_clear(ACTIVE)
 
 
 ##################### Main Program #####################
@@ -72,7 +75,7 @@ play_btn = Button(media_frame, image=play_img, overrelief=SUNKEN, bd=0, command=
 forward_btn = Button(media_frame, image=forward_img, overrelief=SUNKEN, bd=0)
 back_btn = Button(media_frame, image=back_img, overrelief=SUNKEN, bd=0)
 pause_btn = Button(media_frame, image=pause_img, overrelief=SUNKEN, bd=0)
-stop_btn = Button(media_frame, image=stop_img, overrelief=SUNKEN, bd=0)
+stop_btn = Button(media_frame, image=stop_img, overrelief=SUNKEN, bd=0, command=stop)
 
 back_btn.grid(row=0, column=0, padx=10)
 play_btn.grid(row=0, column=1, padx=10)
