@@ -77,7 +77,22 @@ def pause(is_paused): # Pauses the Song
         paused = True
 
 def next_song(): # Goes to the next song
-    pass
+    # getting the current song, returns a tuble of location (pos,)
+    cur_song = playlist_box.curselection()
+    next_song = cur_song[0]+1 # getting the next song's pos
+
+    # reconstructing song filepath
+    song = playlist_box.get(next_song)
+    song = music_filepath.format(song)
+
+    # Loading song then play it.
+    pg.mixer.music.load(song)
+    pg.mixer.music.play()
+
+    # Updating bar in playlist
+    playlist_box.selection_clear(0, END)
+    playlist_box.activate(next_song)
+    playlist_box.selection_set(next_song)
 
 def prev_song(): # Goes to the previous song
     pass
