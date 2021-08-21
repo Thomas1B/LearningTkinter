@@ -35,15 +35,36 @@ def delete_song(): # Function to delete one song from playlist
 def delete_all(): # Function to delete all songs from playlist
     playlist_box.delete(0, END)
 
-def play(): # Plays the Song
-    song = playlist_box.get(ACTIVE)
-    song = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/{}.mp3".format(song)
-    pg.mixer.music.load(song)
-    pg.mixer.music.play()
+def play(paused): # Plays the Song
+
+    if (paused):
+        pg.mixer.music.unpause()
+    else:
+        song = playlist_box.get(ACTIVE)
+        song = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/{}.mp3".format(song)
+        pg.mixer.music.load(song)
+        pg.mixer.music.play()
 
 def stop(): # Stops the Song
     pg.mixer.music.stop()
     playlist_box.selection_clear(ACTIVE)
+
+# Creating Pause variable, see pause().
+global paused
+paused = False
+
+def pause(is_paused): # Pauses the Song
+    global paused
+    paused = is_paused
+
+    if paused:
+        pg.mixer.music.unpause()# Unpause
+        paused = False
+    else:
+        pg.mixer.music.pause()# Pause
+        paused = True
+
+
 
 
 ##################### Main Program #####################
@@ -71,16 +92,16 @@ media_frame = Frame(root)
 media_frame.pack(pady=20)
 
 # Creating Media Control Buttons
-play_btn = Button(media_frame, image=play_img, overrelief=SUNKEN, bd=0, command=play)
+play_btn = Button(media_frame, image=play_img, overrelief=SUNKEN, bd=0, command=lambda: play(paused))
 forward_btn = Button(media_frame, image=forward_img, overrelief=SUNKEN, bd=0)
 back_btn = Button(media_frame, image=back_img, overrelief=SUNKEN, bd=0)
-pause_btn = Button(media_frame, image=pause_img, overrelief=SUNKEN, bd=0)
+pause_btn = Button(media_frame, image=pause_img, overrelief=SUNKEN, bd=0, command= lambda: pause(paused))
 stop_btn = Button(media_frame, image=stop_img, overrelief=SUNKEN, bd=0, command=stop)
 
 back_btn.grid(row=0, column=0, padx=10)
 play_btn.grid(row=0, column=1, padx=10)
-forward_btn.grid(row=0, column=2, padx=10)
-pause_btn.grid(row=0, column=3, padx=10)
+pause_btn.grid(row=0, column=2, padx=10)
+forward_btn.grid(row=0, column=3, padx=10)
 stop_btn.grid(row=0, column=4, padx=10)
 
 
