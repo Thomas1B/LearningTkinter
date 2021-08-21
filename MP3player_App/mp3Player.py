@@ -35,10 +35,13 @@ def delete_song(): # Function to delete one song from playlist
 def delete_all(): # Function to delete all songs from playlist
     playlist_box.delete(0, END)
 
-def play(paused): # Plays the Song
+def play(is_paused): # Plays the Song
+    global paused
+    paused = is_paused
 
     if (paused):
         pg.mixer.music.unpause()
+        paused = False
     else:
         song = playlist_box.get(ACTIVE)
         song = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/{}.mp3".format(song)
