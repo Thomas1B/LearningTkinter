@@ -6,11 +6,13 @@ os.system("clear") # clears terminal
 from tkinter import *
 # from PIL import ImageTk, Image
 
-#####################  #####################
+##################### Functions #####################
 
+def add_song(): # adds a song to the playlist
+    pass
 
-
-
+def add_many_songs(): # adds many songs to the playlist
+    pass
 
 
 
@@ -53,6 +55,13 @@ stop_btn.grid(row=0, column=4, padx=10)
 # Creating Menu Bar
 main_menu = Menu(root)
 root.config(menu=main_menu)
+
+# Creating Add Song Menu Dropdown
+add_song_menu = Menu(main_menu, tearoff=0)
+main_menu.add_cascade(label="Add Songs", menu=add_song_menu)
+add_song_menu.add_command(label="Add one Song to the Playlist", command=add_song) # adds one song to the playlist.
+add_song_menu.add_command(label="Add Many Songs to the Playlist", command=add_many_songs) # adds many songs to the playlist.
+
 
 
 
