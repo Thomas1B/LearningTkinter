@@ -70,6 +70,7 @@ def play(is_paused): # Plays the Song
 def stop(): # Stops the Song
     pg.mixer.music.stop()
     playlist_box.selection_clear(ACTIVE)
+    status_bar.config(text="")
 
 def pause(is_paused): # Pauses the Song
     global paused
@@ -138,13 +139,15 @@ def play_time(): # Function to deal with time.
     # Getting the time played of the song.
     current_time = int(pg.mixer.music.get_pos()/1000) # pg.mixer.music.get_pos() returns time in milliseconds
     # Converting current_time into time format.
-    current_time = time.strftime("%M:%S", time.gmtime(current_time))
+    formatted_time = time.strftime("%M:%S", time.gmtime(current_time))
 
     song = song.replace(replace_part1, "")
     song = song.replace(".mp3", "")
 
-    text = "{}: {} / {}  ".format(song, current_time, song_length)
-    status_bar.config(text=text)
+    if current_time >= 0.01: 
+        text = "{}: {} / {}  ".format(song, formatted_time, song_length)
+        status_bar.config(text=text)
+
     status_bar.after(1000, play_time) # runs play_time() every 1 second.
 
 
