@@ -5,6 +5,7 @@ os.system("clear") # clears terminal
 
 from tkinter import *
 from tkinter import filedialog as fd
+import tkinter.ttk as ttk
 import pygame as pg # for mp3 files
 pg.mixer.init() # Initalizing pygame
 import time
@@ -144,7 +145,7 @@ def play_time(): # Function to deal with time.
     song = song.replace(replace_part1, "")
     song = song.replace(".mp3", "")
 
-    if current_time >= 0.01: 
+    if current_time >= 0.01:
         text = "{}: {} / {}  ".format(song, formatted_time, song_length)
         status_bar.config(text=text)
 
@@ -168,13 +169,25 @@ forward_img = PhotoImage(file="images/skip_end.png")
 back_img = PhotoImage(file="images/skip_start.png")
 stop_img = PhotoImage(file="images/stop.png")
 
+# Creating Main Frame
+main_frame = Frame(root)
+main_frame.pack(pady=20)
+
 # Creating Playlist box
-playlist_box = Listbox(root, bg="black", fg="green", width=60, selectbackground="green", selectforeground="black")
-playlist_box.pack(pady=20)
+playlist_box = Listbox(main_frame, bg="black", fg="green", width=60, selectbackground="green", selectforeground="black")
+playlist_box.grid(row=0, column=0)
+
+# Creating Volume Slider Frame
+volume_frame = LabelFrame(main_frame, text="Volume", font = 12)
+volume_frame.grid(row=0, column=1, padx=30)
+
+# Creating volume slider
+volume_slider = ttk.Scale(volume_frame, from_=0, to=1, orient=VERTICAL, length=120)
+volume_slider.pack(pady=10)
 
 # Creating Media Control Frame
-media_frame = Frame(root)
-media_frame.pack(pady=20)
+media_frame = Frame(main_frame)
+media_frame.grid(row=1, column=0, pady=20)
 
 # Creating Media Control Buttons
 play_btn = Button(media_frame, image=play_img, overrelief=SUNKEN, bd=0, command=lambda: play(paused))
