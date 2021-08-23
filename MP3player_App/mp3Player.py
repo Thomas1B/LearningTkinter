@@ -177,9 +177,15 @@ main_menu.add_cascade(label="Delete Songs", menu=delete_menu)
 delete_menu.add_command(label="Delete One Song from the Playlist", command=delete_song)
 delete_menu.add_command(label="Delete All Songs from the Playlist", command=delete_all)
 
+# Creating Status Bar
+status_bar = Label(root, text="Nothing", bd=1, relief=GROOVE, anchor=E)
+status_bar.pack(fill=X, side=BOTTOM, ipady=2)
+
 # Temporary Label
 my_label = Label(root, text="")
 my_label.pack(pady=5)
+
+
 
 
 
