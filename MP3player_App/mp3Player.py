@@ -149,8 +149,14 @@ def play_time(): # Function to deal with time.
         text = "{}: {} / {}  ".format(song, formatted_time, song_length)
         status_bar.config(text=text)
 
-    status_bar.after(1000, play_time) # runs play_time() every 1 second.
+    # runs play_time() every 1 second.
+    status_bar.after(1000, play_time)
 
+def volume(value): # Function to handle volume controls
+    volume = volume_slider.get()
+    pg.mixer.music.set_volume(volume)
+    volume = int(round(volume, 2)*100)
+    volume_frame.config(text="Volume\n" + str(volume) + "%")
 
 
 ##################### Main Program #####################
@@ -178,11 +184,13 @@ playlist_box = Listbox(main_frame, bg="black", fg="green", width=60, selectbackg
 playlist_box.grid(row=0, column=0)
 
 # Creating Volume Slider Frame
-volume_frame = LabelFrame(main_frame, text="Volume", font = 12)
+default_vol = 0.4 # default volume, see volume silder
+text = "Volume\n{}%".format(int(round(default_vol, 2)*100)) 
+volume_frame = LabelFrame(main_frame, text=text, font = 12)
 volume_frame.grid(row=0, column=1, padx=30)
 
 # Creating volume slider
-volume_slider = ttk.Scale(volume_frame, from_=0, to=1, orient=VERTICAL, length=120)
+volume_slider = ttk.Scale(volume_frame, from_=1, to=0, orient=VERTICAL, length=120, value=default_vol, command=volume)
 volume_slider.pack(pady=10)
 
 # Creating Media Control Frame
