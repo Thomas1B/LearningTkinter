@@ -8,18 +8,20 @@ from tkinter import filedialog as fd
 import pygame as pg # for mp3 files
 pg.mixer.init() # Initalizing pygame
 import time
+from mutagen.mp3 import MP3
 
 
 ##################### Global Variables #####################
 
-# Global variable to hold filepath where mp3 files are stored.
-# Using String format() Method.
-global music_filepath
-music_filepath = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/{}.mp3"
-
 # Global variable to hold parts that need to be stripped, see add_song() and add_songs.
 global replace_part1
 replace_part1 = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/"
+
+# Global variable to hold filepath where mp3 files are stored.
+# Using String format() Method.
+global music_filepath
+music_filepath = replace_part1 + "{}.mp3"
+
 
 # Creating Pause variable, see pause().
 global paused
@@ -126,13 +128,23 @@ def prev_song(): # Goes to the previous song
     playlist_box.selection_set(next_song)
 
 def play_time(): # Function to deal with time.
+    # Getting total length of song.
+    song = playlist_box.get(ACTIVE)
+    song = music_filepath.format(song)
+    global song_length
+    song_length = MP3(song).info.length
+    song_length = time.strftime("%M:%S", time.gmtime(song_length))
+
     # Getting the time played of the song.
     current_time = int(pg.mixer.music.get_pos()/1000) # pg.mixer.music.get_pos() returns time in milliseconds
-
     # Converting current_time into time format.
     current_time = time.strftime("%M:%S", time.gmtime(current_time))
 
-    status_bar.config(text=current_time)
+    song = song.replace(replace_part1, "")
+    song = song.replace(".mp3", "")
+
+    text = "{}: {} / {}  ".format(song, current_time, song_length)
+    status_bar.config(text=text)
     status_bar.after(1000, play_time) # runs play_time() every 1 second.
 
 
@@ -194,7 +206,7 @@ delete_menu.add_command(label="Delete One Song from the Playlist", command=delet
 delete_menu.add_command(label="Delete All Songs from the Playlist", command=delete_all)
 
 # Creating Status Bar
-status_bar = Label(root, text="Nothing", bd=1, relief=GROOVE, anchor=E)
+status_bar = Label(root, text="", bd=1, relief=GROOVE, anchor=E)
 status_bar.pack(fill=X, side=BOTTOM, ipady=2)
 
 # Temporary Label
