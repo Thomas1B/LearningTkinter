@@ -153,9 +153,10 @@ def play_time(): # Function to deal with time.
     status_bar.after(1000, play_time)
 
 def volume(value): # Function to handle volume controls
+    # Needs dummy variable since ttk.Scale
     volume = volume_slider.get()
     pg.mixer.music.set_volume(volume)
-    volume = int(round(volume, 2)*100)
+    volume = int(round(volume, 2)*100) # converting into a percentage.
     volume_frame.config(text="Volume\n" + str(volume) + "%")
 
 
@@ -185,7 +186,7 @@ playlist_box.grid(row=0, column=0)
 
 # Creating Volume Slider Frame
 default_vol = 0.4 # default volume, see volume silder
-text = "Volume\n{}%".format(int(round(default_vol, 2)*100)) 
+text = "Volume\n{}%".format(int(round(default_vol, 2)*100)) # default text for volume frame.
 volume_frame = LabelFrame(main_frame, text=text, font = 12)
 volume_frame.grid(row=0, column=1, padx=30)
 
