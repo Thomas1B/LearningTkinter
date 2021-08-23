@@ -8,6 +8,7 @@ from tkinter import filedialog as fd
 import pygame as pg # for mp3 files
 pg.mixer.init() # Initalizing pygame
 
+
 ##################### Global Variables #####################
 
 # Global variable to hold filepath where mp3 files are stored.
@@ -60,6 +61,8 @@ def play(is_paused): # Plays the Song
         song = music_filepath.format(song)
         pg.mixer.music.load(song)
         pg.mixer.music.play()
+
+    play_time()
 
 def stop(): # Stops the Song
     pg.mixer.music.stop()
@@ -120,6 +123,12 @@ def prev_song(): # Goes to the previous song
     playlist_box.selection_clear(0, END)
     playlist_box.activate(next_song)
     playlist_box.selection_set(next_song)
+
+def play_time(): # Function to deal with time.
+    current_time = pg.mixer.music.get_pos() # returns time in milliseconds (int)
+    current_time = int(current_time/1000)
+    my_label.config(text=current_time)
+    my_label.after(1000, play_time) # runs play_time() every 1 second.
 
 ##################### Main Program #####################
 
