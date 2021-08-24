@@ -23,10 +23,13 @@ replace_part1 = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/
 global music_filepath
 music_filepath = replace_part1 + "{}.mp3"
 
-
 # Creating Pause variable, see pause().
 global paused
 paused = False
+
+# Creating stpo variable, see stop().
+global stopped
+stopped = False
 
 ##################### Functions #####################
 
@@ -54,8 +57,9 @@ def delete_all(): # Function to delete all songs from playlist
     playlist_box.delete(0, END)
 
 def play(is_paused): # Plays the Song
-    global paused
-    paused = is_paused
+    global paused, stopped
+
+    stopped = False
 
     if (paused):
         pg.mixer.music.unpause()
@@ -69,13 +73,15 @@ def play(is_paused): # Plays the Song
     play_time()
 
 def stop(): # Stops the Song
+    global stopped
     pg.mixer.music.stop()
     playlist_box.selection_clear(ACTIVE)
     status_bar.config(text="")
+    stopped = True
+
 
 def pause(is_paused): # Pauses the Song
     global paused
-    paused = is_paused
 
     if paused:
         pg.mixer.music.unpause()# Unpause
@@ -131,6 +137,11 @@ def prev_song(): # Goes to the previous song
 
 def play_time(): # Function to deal with time dependent things, (status_bar, song_slider)
 
+    if stopped:
+        song_slider.config(value = 0)
+        my_label.config(text="")
+        return # Stops play_time()
+
     # Getting total length of song.
     song = playlist_box.get(ACTIVE)
     song = music_filepath.format(song)
@@ -147,6 +158,7 @@ def play_time(): # Function to deal with time dependent things, (status_bar, son
     song = song.replace(".mp3", "")
 
     if current_time >= 0.01:
+        # Updating status_bar
         text = "{}: {} / {}  ".format(song, formatted_time, formatted_length)
         status_bar.config(text=text)
 
@@ -154,9 +166,12 @@ def play_time(): # Function to deal with time dependent things, (status_bar, son
     song_slider.config(to = song_length)
     my_label.config(text = song_slider.get()) # Test printing
 
-    # Updating Slider position every 1 second
-    next_time = int(song_slider.get())+1
-    song_slider.config(value=next_time)
+    if paused: #
+        return
+    else:
+        # Updating song slider position
+        next_time = int(song_slider.get())+1
+        song_slider.config(value=next_time)
 
     # runs play_time() every 1 second.
     status_bar.after(1000, play_time)
