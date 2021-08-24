@@ -77,6 +77,8 @@ def stop(): # Stops the Song
     pg.mixer.music.stop()
     playlist_box.selection_clear(ACTIVE)
     status_bar.config(text="")
+    song_slider.config(value = 0)
+    my_label.config(text="")
     stopped = True
 
 
@@ -86,11 +88,17 @@ def pause(is_paused): # Pauses the Song
     if paused:
         pg.mixer.music.unpause()# Unpause
         paused = False
+        play_time()
     else:
         pg.mixer.music.pause()# Pause
         paused = True
 
 def next_song(): # Goes to the next song
+
+    # Updating song slider position and status bar.
+    status_bar.config(text="")
+    song_slider.config(value=0)
+
     # getting the current song, returns a tuble of location (pos,)
     cur_song = playlist_box.curselection()[0]
     next_song = cur_song+1 # getting the next song's pos
@@ -113,6 +121,10 @@ def next_song(): # Goes to the next song
     playlist_box.selection_set(next_song)
 
 def prev_song(): # Goes to the previous song
+
+    # Updating song slider position and status bar.
+    status_bar.config(text="")
+    song_slider.config(value=0)
 
     # getting the current song, returns a tuble of location (pos,)
     cur_song = playlist_box.curselection()[0]
@@ -138,8 +150,6 @@ def prev_song(): # Goes to the previous song
 def play_time(): # Function to deal with time dependent things, (status_bar, song_slider)
 
     if stopped:
-        song_slider.config(value = 0)
-        my_label.config(text="")
         return # Stops play_time()
 
     # Getting total length of song.
@@ -157,7 +167,7 @@ def play_time(): # Function to deal with time dependent things, (status_bar, son
     song = song.replace(replace_part1, "")
     song = song.replace(".mp3", "")
 
-    if current_time >= 0.01:
+    if current_time >= 0:
         # Updating status_bar
         text = "{}: {} / {}  ".format(song, formatted_time, formatted_length)
         status_bar.config(text=text)
