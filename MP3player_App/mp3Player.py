@@ -135,7 +135,7 @@ def play_time(): # Function to deal with time.
     song = music_filepath.format(song)
     global song_length
     song_length = MP3(song).info.length
-    song_length = time.strftime("%M:%S", time.gmtime(song_length))
+    formatted_length = time.strftime("%M:%S", time.gmtime(song_length))
 
     # Getting the time played of the song.
     current_time = int(pg.mixer.music.get_pos()/1000) # pg.mixer.music.get_pos() returns time in milliseconds
@@ -146,8 +146,16 @@ def play_time(): # Function to deal with time.
     song = song.replace(".mp3", "")
 
     if current_time >= 0.01:
-        text = "{}: {} / {}  ".format(song, formatted_time, song_length)
+        text = "{}: {} / {}  ".format(song, formatted_time, formatted_length)
         status_bar.config(text=text)
+
+    # Setting the slider to length of song.
+    song_slider.config(to = song_length)
+    my_label.config(text = song_slider.get()) # Test printing
+
+    # Updating Slider position every 1 second
+    next_time = int(song_slider.get())+1
+    song_slider.config(value=next_time)
 
     # runs play_time() every 1 second.
     status_bar.after(1000, play_time)
@@ -159,10 +167,10 @@ def volume(value): # Function to handle volume controls
     volume = int(round(volume, 2)*100) # converting into a percentage.
     volume_frame.config(text="Volume\n" + str(volume) + "%")
 
-def song_slide(value): # Function to handle song positioning
+def slider(value): # Function to handle song positioning
     '''
     Function to handle the position of the song based on the
-    song_slide position. See song_slider.
+    song_slider position. See song_slider.
     '''
     pass
 
@@ -192,7 +200,7 @@ playlist_box = Listbox(main_frame, bg="black", fg="green", width=60, selectbackg
 playlist_box.grid(row=0, column=0)
 
 # Creating Volume Slider Frame
-default_vol = 0.4 # default volume, see volume silder
+default_vol = 0.15 # default volume, see volume silder
 text = "Volume\n{}%".format(int(round(default_vol, 2)*100)) # default text for volume frame.
 volume_frame = LabelFrame(main_frame, text=text, font = 12)
 volume_frame.grid(row=0, column=1, padx=30)
@@ -202,7 +210,7 @@ volume_slider = ttk.Scale(volume_frame, from_=1, to=0, orient=VERTICAL, length=1
 volume_slider.pack(pady=10)
 
 # Creating Song slider
-song_slider = ttk.Scale(main_frame, from_=0, to=100, orient=HORIZONTAL, length=360, value=0, command=song_slide)
+song_slider = ttk.Scale(main_frame, from_=0, to=100, orient=HORIZONTAL, length=360, value=0, command=slider)
 song_slider.grid(row=2, column=0)
 
 # Creating Media Control Frame
