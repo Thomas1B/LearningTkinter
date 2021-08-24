@@ -166,17 +166,25 @@ def play_time(): # Function to deal with time dependent things, (status_bar, son
     song = song.replace(replace_part1, "")
     song = song.replace(".mp3", "")
 
+    if int(song_slider.get()) == int(song_length) :
+        # Checking if song is over
+        stop()
+
+    elif paused:
+        pass
+    else:
+        # Updating song slider position and slider length.
+        next_time = int(song_slider.get())+1 # add 1 sec.
+        song_slider.config(value=next_time, to=song_length)
+        formatted_time = time.strftime("%M:%S", time.gmtime(int(song_slider.get())))
+        text = "{}: {} / {}  ".format(song, formatted_time, formatted_length)
+        status_bar.config(text=text)
+
+
     if current_time >= 0:
         # Updating status_bar
         text = "{}: {} / {}  ".format(song, formatted_time, formatted_length)
         status_bar.config(text=text)
-
-    if paused:
-        return
-    else:
-        # Updating song slider position and slider length.
-        next_time = int(song_slider.get())+1
-        song_slider.config(value=next_time, to=song_length)
 
     # runs play_time() every 1 second.
     status_bar.after(1000, play_time)
@@ -193,7 +201,10 @@ def slider(value): # Function to handle song positioning
     Function to handle the position of the song based on the
     song_slider position. See song_slider.
     '''
-    pass
+    song = playlist_box.get(ACTIVE)
+    song = music_filepath.format(song)
+    pg.mixer.music.load(song)
+    pg.mixer.music.play(start=song_slider.get())
 
 
 ##################### Main Program #####################
@@ -221,7 +232,7 @@ playlist_box = Listbox(main_frame, bg="black", fg="green", width=60, selectbackg
 playlist_box.grid(row=0, column=0)
 
 # Creating Volume Slider Frame
-default_vol = 0.15 # default volume, see volume silder
+default_vol = 0.1 # default volume, see volume silder
 text = "Volume\n{}%".format(int(round(default_vol, 2)*100)) # default text for volume frame.
 volume_frame = LabelFrame(main_frame, text=text, font = 12)
 volume_frame.grid(row=0, column=1, padx=30)
