@@ -129,7 +129,8 @@ def prev_song(): # Goes to the previous song
     playlist_box.activate(next_song)
     playlist_box.selection_set(next_song)
 
-def play_time(): # Function to deal with time.
+def play_time(): # Function to deal with time dependent things, (status_bar, song_slider)
+
     # Getting total length of song.
     song = playlist_box.get(ACTIVE)
     song = music_filepath.format(song)
