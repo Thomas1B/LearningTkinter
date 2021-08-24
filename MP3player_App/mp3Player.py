@@ -159,6 +159,13 @@ def volume(value): # Function to handle volume controls
     volume = int(round(volume, 2)*100) # converting into a percentage.
     volume_frame.config(text="Volume\n" + str(volume) + "%")
 
+def song_slide(value): # Function to handle song positioning
+    '''
+    Function to handle the position of the song based on the
+    song_slide position. See song_slider.
+    '''
+    pass
+
 
 ##################### Main Program #####################
 
@@ -193,6 +200,10 @@ volume_frame.grid(row=0, column=1, padx=30)
 # Creating volume slider
 volume_slider = ttk.Scale(volume_frame, from_=1, to=0, orient=VERTICAL, length=120, value=default_vol, command=volume)
 volume_slider.pack(pady=10)
+
+# Creating Song slider
+song_slider = ttk.Scale(main_frame, from_=0, to=100, orient=HORIZONTAL, length=360, value=0, command=song_slide)
+song_slider.grid(row=2, column=0)
 
 # Creating Media Control Frame
 media_frame = Frame(main_frame)
