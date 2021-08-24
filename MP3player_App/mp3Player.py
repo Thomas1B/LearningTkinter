@@ -81,7 +81,6 @@ def stop(): # Stops the Song
     my_label.config(text="")
     stopped = True
 
-
 def pause(is_paused): # Pauses the Song
     global paused
 
@@ -172,16 +171,12 @@ def play_time(): # Function to deal with time dependent things, (status_bar, son
         text = "{}: {} / {}  ".format(song, formatted_time, formatted_length)
         status_bar.config(text=text)
 
-    # Setting the slider to length of song.
-    song_slider.config(to = song_length)
-    my_label.config(text = song_slider.get()) # Test printing
-
-    if paused: #
+    if paused:
         return
     else:
-        # Updating song slider position
+        # Updating song slider position and slider length.
         next_time = int(song_slider.get())+1
-        song_slider.config(value=next_time)
+        song_slider.config(value=next_time, to=song_length)
 
     # runs play_time() every 1 second.
     status_bar.after(1000, play_time)
