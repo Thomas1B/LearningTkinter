@@ -11,8 +11,8 @@ from tkinter import *
 
 # Making Main (root) window.
 root = Tk()
-root.title("Paint App")
-root.geometry("{}x{}".format(500,400))
+root.title("Paint Program")
+root.geometry("{}x{}".format(800,800))
 # root.iconbitmap()
 
 
