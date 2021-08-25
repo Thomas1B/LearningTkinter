@@ -21,12 +21,9 @@ canvas = Canvas(root, width=w, height=h, bg="white")
 canvas.pack(pady=20)
 
 
-x1 = 0
-y1 = 100
 
-x2 = 300
-y2 = 100
-canvas.create_line(x1, y1, x2, y2, fill="red")
+canvas.create_line(0, 100, 300, 100, fill="red")
+canvas.create_line(150, 0, 150, 200, fill="red")
 
 
 
