@@ -12,7 +12,7 @@ import tkinter.ttk as ttk
 def paint(event): # Function to draw on canvas
 
     # Changing Brush Parameters.
-    brush_width = 10
+    brush_width = int(round(brush_slider.get()))
     brush_color = "green"
     # Brush types: BUTT, ROUND, PROJECTING
     brush_type = ROUND
@@ -29,7 +29,12 @@ def paint(event): # Function to draw on canvas
     canvas.create_line(x1, y1, x2, y2, fill=brush_color, width=brush_width, capstyle=brush_type, smooth=True)
 
 def change_brush_size(event): # Function to change brush size
-    pass
+    # Getting the
+    size = int(round(brush_slider.get()))
+    slider_label.config(text=size)
+
+
+
 
 ##################### Main Program #####################
 
@@ -56,9 +61,12 @@ brush_size_frame = LabelFrame(brush_options_frame, text="Brush Size")
 brush_size_frame.grid(row=0, column=0, padx=50)
 
 # Creating Brush Slider
-brush_slider = ttk.Scale(brush_size_frame, from_=1, to=100, command=change_brush_size, orient=VERTICAL, value=10)
+brush_slider = ttk.Scale(brush_size_frame, from_=100, to=1, command=change_brush_size, orient=VERTICAL, value=10)
 brush_slider.pack(padx=10, pady=10)
 
+# Creating Brush Slider label
+slider_label = Label(brush_size_frame, text=brush_slider.get())
+slider_label.pack()
 
 
 root.mainloop()
