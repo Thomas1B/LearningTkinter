@@ -7,8 +7,21 @@ from tkinter import *
 import tkinter.ttk as ttk
 from tkinter import colorchooser as color
 from tkinter import filedialog as fd
+from PIL import Image, ImageDraw, ImageGrab, ImageTk
+import PIL
+
+
 
 ##################### Global Variables ######################
+
+
+#### Program title #####
+global program_title
+program_title = "Paint Program - "
+
+
+global filepath
+filepath = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/PaintApp/Paintings/"
 
 global brush_color
 brush_color = "black"
@@ -49,7 +62,7 @@ def change_canvas_color(): # Function to change the Canvas background color.
     canvas_color = color.askcolor(color=canvas_color)[1]
     canvas.config(bg=canvas_color)
 
-def clear_ink(): # Function to clear to clear the canvas.
+def clear_ink(): # Function to clear to ink on the canvas.
     canvas.delete("all")
 
 def reset_canvas_color(): # Function to rest canvas color.
@@ -59,8 +72,27 @@ def clear_all(): # Function to reset canvas color and clear ink.
     canvas.delete("all")
     canvas.config(bg="white")
 
-def save_image(): # Function to save the current paint job
-    pass
+def save_new_image(): # Function to save the current paint job
+    filetypes=(("png Files", "*.png"),("pdf Files", "*.pdf"),("ico Files", "*.ico"))
+    result = fd.asksaveasfilename(initialdir="Paintings/", filetypes=filetypes)
+
+    if result.endswith(".png"):
+        pass
+    else:
+        result += ".png"
+
+    if result:
+        # Getting coordinates for root window and canvas for cropping.
+        x = root.winfo_rootx() + canvas.winfo_x()
+        y = root.winfo_rooty() + canvas.winfo_y()
+        x1 = x + canvas.winfo_width()
+        y1 = y + canvas.winfo_height()
+        ImageGrab.grab().crop((x,y,x1,y1)).save(result)
+
+        # Updating root title.
+        title = program_title + "{}".format(result)
+        title = title.replace(filepath,"")
+        root.title(title)
 
 def open_image(): # Function to open saved images
     pass
@@ -70,7 +102,7 @@ def open_image(): # Function to open saved images
 
 # Making Main (root) window.
 root = Tk()
-root.title("Paint Program")
+root.title(program_title)
 root.geometry("{}x{}".format(800,800))
 # root.iconbitmap()
 
@@ -133,7 +165,7 @@ root.config(menu=main_menu)
 # Creating Save Menu
 save_menu = Menu(main_menu, tearoff=0)
 main_menu.add_cascade(label = "Save Options", menu=save_menu)
-save_menu.add_command(label="Save Image", command=save_image)
+save_menu.add_command(label="Save New Image", command=save_new_image)
 save_menu.add_command(label="Open Saved Images", command=open_image)
 
 # Creating Clear Menu.
