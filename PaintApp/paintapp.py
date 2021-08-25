@@ -18,8 +18,7 @@ from tkinter import messagebox
 
 #### Program title #####
 global program_title
-program_title = "Paint Program - "
-
+program_title = "Paint Program "
 
 global filepath
 filepath = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/PaintApp/Paintings/"
@@ -132,7 +131,8 @@ h = 400 # Height for canvas
 canvas = Canvas(root, width=w, height=h, bg="white")
 canvas.pack(pady=20)
 
-canvas.bind("<B1-Motion>", paint) # Binding canvas to left-click on mouse
+# Binding canvas to left-click on mouse
+canvas.bind("<B1-Motion>", paint)
 
 # Creating Brush Options Frame
 brush_options_frame = Frame(root)
@@ -162,7 +162,7 @@ brush_radio1 = Radiobutton(brush_type_frame, text="Round", variable=brush_type, 
 brush_radio2 = Radiobutton(brush_type_frame, text="Slash", variable=brush_type, value="butt")
 brush_radio3 = Radiobutton(brush_type_frame, text="Diamond", variable=brush_type, value="projecting")
 
-brush_radio1.pack(anchor=W) #anchor=W, aligns the buttons.
+brush_radio1.pack(anchor=W) #anchor=W, aligns the buttons to the left.
 brush_radio2.pack(anchor=W)
 brush_radio3.pack(anchor=W)
 
@@ -194,6 +194,7 @@ main_menu.add_cascade(label = "Clear Options", menu=clear_menu)
 clear_menu.add_command(label="Clear Ink", command = clear_ink)
 clear_menu.add_command(label="Reset Canvas Color", command = reset_canvas_color)
 clear_menu.add_command(label="Clear Everything", command = clear_all)
+
 
 
 root.mainloop()
