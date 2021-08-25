@@ -5,6 +5,12 @@ os.system("clear") # clears terminal
 
 from tkinter import *
 import tkinter.ttk as ttk
+from tkinter import colorchooser as color
+
+##################### Global Variables ######################
+
+global brush_color
+brush_color = "black"
 
 
 ##################### Functions #####################
@@ -14,8 +20,6 @@ def paint(event): # Function to draw on canvas
     # Changing Brush Parameters.
     # for brush_type screen Radiobuttons.
     brush_width = int(round(brush_slider.get()))
-    brush_color = "green"
-
 
     # Starting position
     x1 = event.x - 1
@@ -34,10 +38,15 @@ def change_brush_size(event): # Function to change brush size
     slider_label.config(text=size)
 
 def change_brush_color(): # Function to change the Bursh color
-    pass
+    global brush_color
+    brush_color = "black"
+    brush_color = color.askcolor(color=brush_color)[1]
 
 def change_canvas_color(): # Function to change the Canvas background color.
-    pass
+    global canvas_color
+    canvas_color = "white"
+    canvas_color = color.askcolor(color=canvas_color)[1]
+    canvas.config(bg=canvas_color)
 
 
 def clear_canvas(): # Function to clear to clear the canvas.
