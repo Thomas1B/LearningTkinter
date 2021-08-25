@@ -10,6 +10,12 @@ from tkinter import *
 
 def paint(event): # Function to draw on canvas
 
+    # Changing Brush Parameters.
+    brush_width = 10
+    brush_color = "green"
+    # Brush types: BUTT, ROUND, PROJECTING
+    brush_type = ROUND
+
     # Starting position
     x1 = event.x - 1
     y1 = event.y - 1
@@ -19,7 +25,7 @@ def paint(event): # Function to draw on canvas
     y2 = event.y + 1
 
     # Drawing on canvas
-    canvas.create_line(x1, y1, x2, y2, fill="red", smooth=True)
+    canvas.create_line(x1, y1, x2, y2, fill=brush_color, width=brush_width, capstyle=brush_type, smooth=True)
 
 
 
