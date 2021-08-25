@@ -9,6 +9,7 @@ from tkinter import colorchooser as color
 from tkinter import filedialog as fd
 from PIL import Image, ImageDraw, ImageGrab, ImageTk
 import PIL
+from tkinter import messagebox
 
 
 
@@ -76,7 +77,7 @@ def save_new_image(): # Function to save the current paint job
     filetypes=(("png Files", "*.png"),("pdf Files", "*.pdf"),("ico Files", "*.ico"))
     result = fd.asksaveasfilename(initialdir="Paintings/", filetypes=filetypes)
 
-    if result.endswith(".png"):
+    if result.endswith(".png") or result.endswith(".pdf") or result.endswith(".ico"):
         pass
     else:
         result += ".png"
@@ -89,13 +90,27 @@ def save_new_image(): # Function to save the current paint job
         y1 = y + canvas.winfo_height()
         ImageGrab.grab().crop((x,y,x1,y1)).save(result)
 
-        # Updating root title.
-        title = program_title + "{}".format(result)
-        title = title.replace(filepath,"")
-        root.title(title)
+        # Popup message if save was successful.
+        msg = "{}".format(result)
+        msg = msg.replace(filepath,"")
+        popup_text = "Your Image \"{}\" Has been Saved!".format(msg)
+        messagebox.showinfo("Image Saved", popup_text)
 
 def open_image(): # Function to open saved images
-    pass
+    filetypes=(("png Files", "*.png"),("pdf Files", "*.pdf"),("ico Files", "*.ico"))
+    img_path = fd.askopenfilename(initialdir="Paintings/", filetypes=filetypes)
+
+    window = Toplevel()
+    msg = "{}".format(img_path)
+    msg = msg.replace(filepath,"")
+    window.title(msg)
+
+    img = PhotoImage(file=img_path)
+    img_label = Label(window, image=img)
+    img_label.pack(padx=20, pady=20)
+
+    window.mainloop()
+
 
 
 ##################### Main Program #####################
