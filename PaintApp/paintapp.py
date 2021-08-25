@@ -114,8 +114,16 @@ def open_image(): # Function to open saved images
 
     window.mainloop()
 
+def delete_image(): # Function to delete an image.
+    filetypes=(("png Files", "*.png"),("pdf Files", "*.pdf"),("ico Files", "*.ico"))
+    img_path = fd.askopenfilename(initialdir=filepath, filetypes=filetypes)
 
-
+    if os.path.exists(img_path):
+        os.remove(img_path)
+        msg = "{}".format(img_path)
+        msg = msg.replace(filepath,"")
+        popup_text = "Your Image \"{}\" has Been Deleted!".format(msg)
+        messagebox.showinfo("Image Deleted", popup_text)
 
 ##################### Main Program #####################
 
@@ -195,6 +203,10 @@ clear_menu.add_command(label="Clear Ink", command = clear_ink)
 clear_menu.add_command(label="Reset Canvas Color", command = reset_canvas_color)
 clear_menu.add_command(label="Clear Everything", command = clear_all)
 
+# Creating Delete menu
+delete_menu = Menu(main_menu, tearoff=0)
+main_menu.add_cascade(label="Delete Options", menu=delete_menu)
+delete_menu.add_command(label="Delete an Image", command=delete_image)
 
 
 root.mainloop()
