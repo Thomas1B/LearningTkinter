@@ -4,6 +4,7 @@ import os
 os.system("clear") # clears terminal
 
 from tkinter import *
+import tkinter.ttk as ttk
 
 
 ##################### Functions #####################
@@ -27,7 +28,8 @@ def paint(event): # Function to draw on canvas
     # Drawing on canvas
     canvas.create_line(x1, y1, x2, y2, fill=brush_color, width=brush_width, capstyle=brush_type, smooth=True)
 
-
+def change_brush_size(event): # Function to change brush size
+    pass
 
 ##################### Main Program #####################
 
@@ -43,15 +45,19 @@ h = 400 # Height for canvas
 canvas = Canvas(root, width=w, height=h, bg="white")
 canvas.pack(pady=20)
 
-x1 = 1,2,3,4
-print(x1)
-print(type(x1))
+canvas.bind("<B1-Motion>", paint) # Binding canvas to left-click on mouse
 
+# Creating Brush Options Frame
+brush_options_frame = Frame(root)
+brush_options_frame.pack(pady=20)
 
-# canvas.create_line(0, 100, 300, 100, fill="red")
-# canvas.create_line(150, 0, 150, 200, fill="red")
+# Creating Brush Size frame
+brush_size_frame = LabelFrame(brush_options_frame, text="Brush Size")
+brush_size_frame.grid(row=0, column=0, padx=50)
 
-canvas.bind("<B1-Motion>", paint) # left-click on mouse
+# Creating Brush Slider
+brush_slider = ttk.Scale(brush_size_frame, from_=1, to=100, command=change_brush_size, orient=VERTICAL, value=10)
+brush_slider.pack(padx=10, pady=10)
 
 
 
