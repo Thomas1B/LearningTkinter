@@ -15,7 +15,10 @@ root.title("Paint Program")
 root.geometry("{}x{}".format(800,800))
 # root.iconbitmap()
 
-
+w = 600 # Width for canvas
+h = 400 # Height for canvas
+canvas = Canvas(root, width=w, height=h, bg="white")
+canvas.pack(pady=20)
 
 
 
