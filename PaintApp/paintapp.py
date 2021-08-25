@@ -26,16 +26,18 @@ def paint(event): # Function to draw on canvas
     y2 = event.y + 1
 
     # Drawing on canvas
-    canvas.create_line(x1, y1, x2, y2, fill=brush_color, width=brush_width, capstyle=brush_type, smooth=True)
+    canvas.create_line(x1, y1, x2, y2, fill=brush_color, width=brush_width, capstyle=brush_type.get(), smooth=True)
 
 def change_brush_size(event): # Function to change brush size
     # Getting the
     size = int(round(brush_slider.get()))
     slider_label.config(text=size)
 
+def change_brush_color(): # Function to change the Bursh color
+    pass
 
-
-
+def change_canvas_color(): # Function to change the Canvas background color.
+    pass
 
 
 def clear_canvas(): # Function to clear to clear the canvas.
@@ -89,6 +91,18 @@ brush_radio3 = Radiobutton(brush_type_frame, text="Diamond", variable=brush_type
 brush_radio1.pack(anchor=W) #anchor=W, aligns the buttons.
 brush_radio2.pack(anchor=W)
 brush_radio3.pack(anchor=W)
+
+# Creating Brush color Frame
+change_color_frame =  LabelFrame(brush_options_frame, text="Change Colors")
+change_color_frame.grid(row=0, column=2)
+
+# Change Brush color Button.
+brush_color_btn = Button(change_color_frame, text="Brush Color", command=change_brush_color)
+brush_color_btn.pack(padx=10, pady=10)
+
+# Change canvas background
+canvas_color_btn = Button(change_color_frame, text="Canvas Color", command=change_canvas_color)
+canvas_color_btn.pack(padx=10, pady=10)
 
 # Creating Menu Bar.
 main_menu = Menu(root)
