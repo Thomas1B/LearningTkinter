@@ -75,7 +75,7 @@ def clear_all(): # Function to reset canvas color and clear ink.
 
 def save_new_image(): # Function to save the current paint job
     filetypes=(("png Files", "*.png"),("pdf Files", "*.pdf"),("ico Files", "*.ico"))
-    result = fd.asksaveasfilename(initialdir="Paintings/", filetypes=filetypes)
+    result = fd.asksaveasfilename(initialdir=filepath, filetypes=filetypes)
 
     if result.endswith(".png") or result.endswith(".pdf") or result.endswith(".ico"):
         pass
@@ -98,18 +98,23 @@ def save_new_image(): # Function to save the current paint job
 
 def open_image(): # Function to open saved images
     filetypes=(("png Files", "*.png"),("pdf Files", "*.pdf"),("ico Files", "*.ico"))
-    img_path = fd.askopenfilename(initialdir="Paintings/", filetypes=filetypes)
+    img_path = fd.askopenfilename(initialdir=filepath, filetypes=filetypes)
 
-    window = Toplevel()
-    msg = "{}".format(img_path)
-    msg = msg.replace(filepath,"")
-    window.title(msg)
+    if img_path == "":
+        print(img_path)
+        return
+    else:
+        window = Toplevel()
+        msg = "{}".format(img_path)
+        msg = msg.replace(filepath,"")
+        window.title(msg)
 
-    img = PhotoImage(file=img_path)
-    img_label = Label(window, image=img)
-    img_label.pack(padx=20, pady=20)
+        img = PhotoImage(file=img_path)
+        img_label = Label(window, image=img)
+        img_label.pack(padx=20, pady=20)
 
     window.mainloop()
+
 
 
 
