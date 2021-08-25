@@ -6,6 +6,7 @@ os.system("clear") # clears terminal
 from tkinter import *
 import tkinter.ttk as ttk
 from tkinter import colorchooser as color
+from tkinter import filedialog as fd
 
 ##################### Global Variables ######################
 
@@ -48,9 +49,21 @@ def change_canvas_color(): # Function to change the Canvas background color.
     canvas_color = color.askcolor(color=canvas_color)[1]
     canvas.config(bg=canvas_color)
 
-
-def clear_canvas(): # Function to clear to clear the canvas.
+def clear_ink(): # Function to clear to clear the canvas.
     canvas.delete("all")
+
+def reset_canvas_color(): # Function to rest canvas color.
+    canvas.config(bg="white")
+
+def clear_all(): # Function to reset canvas color and clear ink.
+    canvas.delete("all")
+    canvas.config(bg="white")
+
+def save_image(): # Function to save the current paint job
+    pass
+
+def open_image(): # Function to open saved images
+    pass
 
 
 ##################### Main Program #####################
@@ -117,9 +130,18 @@ canvas_color_btn.pack(padx=10, pady=10)
 main_menu = Menu(root)
 root.config(menu=main_menu)
 
+# Creating Save Menu
+save_menu = Menu(main_menu, tearoff=0)
+main_menu.add_cascade(label = "Save Options", menu=save_menu)
+save_menu.add_command(label="Save Image", command=save_image)
+save_menu.add_command(label="Open Saved Images", command=open_image)
+
 # Creating Clear Menu.
 clear_menu = Menu(main_menu, tearoff=0)
 main_menu.add_cascade(label = "Clear Options", menu=clear_menu)
-clear_menu.add_command(label="Clear All", command = clear_canvas)
+clear_menu.add_command(label="Clear Ink", command = clear_ink)
+clear_menu.add_command(label="Reset Canvas Color", command = reset_canvas_color)
+clear_menu.add_command(label="Clear Everything", command = clear_all)
+
 
 root.mainloop()
