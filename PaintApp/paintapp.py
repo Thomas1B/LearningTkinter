@@ -108,7 +108,7 @@ def open_image(): # Function to open saved images
         img = PhotoImage(file=img_path)
         img_label = Label(window, image=img)
         img_label.pack(padx=20, pady=20)
-    else:
+    else: # if the file doesn't exists, just return.
         return
 
 
