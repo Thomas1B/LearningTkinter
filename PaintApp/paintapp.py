@@ -99,10 +99,7 @@ def open_image(): # Function to open saved images
     filetypes=(("png Files", "*.png"),("pdf Files", "*.pdf"),("ico Files", "*.ico"))
     img_path = fd.askopenfilename(initialdir=filepath, filetypes=filetypes)
 
-    if img_path == "":
-        print(img_path)
-        return
-    else:
+    if os.path.exists(img_path):
         window = Toplevel()
         msg = "{}".format(img_path)
         msg = msg.replace(filepath,"")
@@ -111,6 +108,9 @@ def open_image(): # Function to open saved images
         img = PhotoImage(file=img_path)
         img_label = Label(window, image=img)
         img_label.pack(padx=20, pady=20)
+    else:
+        return
+
 
     window.mainloop()
 
