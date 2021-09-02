@@ -11,7 +11,6 @@ from tkinter import messagebox as mb
 
 
 ################### Gloabal Variables ###################
-# global program_title
 program_title = "Tic Tac Toe"
 
 default_sym = "X" # X,O - sets symbol for first player
@@ -26,17 +25,19 @@ winner = False
 def clicked(btn): # Function handle when a button is clicked.
     global player, count
 
+    # Condition for player X.
     if btn['text'] == " " and player == "X":
         btn['text'] = "X"
         player = "O" # switch player
         count+=1
 
+    # Condition for player O.
     elif btn['text'] == " " and player == "O":
         btn['text'] = "O"
         player = "X" # switch player
         count+=1
 
-    if count >= 3:
+    if count >= 5: # Checking for winner after 5 moves, since least amount of moves to win is 5.
         check()
 
 def check(): # Function to check for winner.
@@ -99,41 +100,41 @@ def check(): # Function to check for winner.
         text = "Congratulations! Player '{}' Wins!\n\n\n \tPlay Again?".format(winner_symbol)
         response = mb.askquestion("Winner!", text)
         if response == "yes":
-            refresh()
+            refresh() # begin a new game.
 
-def refresh(): # Function to clear the board.
+def refresh(): # Function to clear the board. (New Game)
     global player, count, winner
 
+    # Resetting Variables.
     count = 0
     player = default_sym
     winner = False
 
-    for btn in btn_list: # resetting board.
+    for btn in btn_list: # Resetting board.
         btn['text'] = " "
         btn['bg'] = 'white'
         btn['state'] = ACTIVE
-
 
 ################### Main Program ###################5
 
 # Making Main (root) window.
 root = Tk()
 root.title(program_title)
-root_x = 432 # Do Not Change
-root_y = 380 # Do Not Change
-root.geometry("{}x{}".format(root_x, root_y))
+root_s = (432, 380) # Window Size, Do Not Change!!!
+root.geometry("{}x{}".format(root_s[0], root_s[1]))
 root.resizable(width=False, height=False) # Stops user from resizes window.
 
 # Creating Menu Bar
 menu_bar = Menu(root)
 root.config(menu=menu_bar)
 
+# Commands for Menu bar
 menu_bar.add_command(label="Exit Game!", command=root.quit)
 menu_bar.add_command(label="New Game!", command=refresh)
 
 
 # Creating Main Frame
-board_frame = Frame(root, bg='blue', width = 425, height=380)
+board_frame = Frame(root, bg='blue')
 board_frame.pack(fill='both', expand=1)
 
 
