@@ -105,11 +105,10 @@ def refresh(): # Function to clear the board.
     player = default_sym
     winner = False
 
-    for btn in btn_list: #
+    for btn in btn_list: # resetting board.
         btn['text'] = " "
         btn['bg'] = 'white'
         btn['state'] = ACTIVE
-
 
 
 ################### Main Program ###################5
@@ -130,7 +129,7 @@ menu_bar.add_command(label="New Game!", command=refresh)
 
 
 # Creating Main Frame
-board_frame = Frame(root, bg='black', width = 425, height=380)
+board_frame = Frame(root, bg='blue', width = 425, height=380)
 board_frame.pack(fill='both', expand=1)
 
 
@@ -162,6 +161,7 @@ btn7 = Button(board_frame, text=" ", font=font, width=width, height=height, reli
 btn8 = Button(board_frame, text=" ", font=font, width=width, height=height, relief=relief, overrelief=overr, command = lambda: clicked(btn8))
 btn9 = Button(board_frame, text=" ", font=font, width=width, height=height, relief=relief, overrelief=overr, command = lambda: clicked(btn9))
 
+# List to hold buttons.
 btn_list = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8,btn9]
 
 # Griding Buttons to screen.
@@ -176,9 +176,6 @@ btn6.grid(row=1, column=2, padx=(2,2), pady=(2,2))
 btn7.grid(row=2, column=0, padx=(5,2), pady=(2,5)) # Row 3
 btn8.grid(row=2, column=1, padx=(2,2), pady=(2,5))
 btn9.grid(row=2, column=2, padx=(2,2), pady=(2,5))
-
-
-check()
 
 
 root.mainloop()
