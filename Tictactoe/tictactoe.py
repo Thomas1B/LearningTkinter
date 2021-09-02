@@ -7,7 +7,7 @@ os.system("clear") # clears terminal
 ################### Importing Modules ###################
 from tkinter import *
 from tkinter import ttk
-from tkinter import messagebox
+from tkinter import messagebox as mb
 
 
 ################### Gloabal Variables ###################
@@ -93,10 +93,13 @@ def check(): # Function to check for winner.
         btn5.config(bg='red')
         btn7.config(bg='red')
     if winner: # if there is a winner, display popup.
-        text = "Congratulations!\n\n  Player '{}' Wins!".format(winner_symbol)
-        messagebox.showinfo("Winner!", text)
         for btn in btn_list:
             btn['state'] = DISABLED
+
+        text = "Congratulations! Player '{}' Wins!\n\n\n \tPlay Again?".format(winner_symbol)
+        response = mb.askquestion("Winner!", text)
+        if response == "yes":
+            refresh()
 
 def refresh(): # Function to clear the board.
     global player, count, winner
@@ -125,6 +128,7 @@ root.resizable(width=False, height=False) # Stops user from resizes window.
 menu_bar = Menu(root)
 root.config(menu=menu_bar)
 
+menu_bar.add_command(label="Exit Game!", command=root.quit)
 menu_bar.add_command(label="New Game!", command=refresh)
 
 
@@ -177,5 +181,5 @@ btn7.grid(row=2, column=0, padx=(5,2), pady=(2,5)) # Row 3
 btn8.grid(row=2, column=1, padx=(2,2), pady=(2,5))
 btn9.grid(row=2, column=2, padx=(2,2), pady=(2,5))
 
-
+check()
 root.mainloop()
