@@ -7,6 +7,7 @@ os.system("clear") # clears terminal
 ################### Importing Modules ###################
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 
 
 ################### Gloabal Variables ###################
@@ -15,7 +16,9 @@ program_title = "Tic Tac Toe"
 
 default_sym = "X" # X,O - sets symbol for first player
 player = default_sym
-count = 0
+
+count = 0 # counts how many turns.
+winner = False
 
 
 ################### Functions ###################
@@ -33,20 +36,79 @@ def clicked(btn): # Function handle when a button is clicked.
         player = "X" # switch player
         count+=1
 
-def check(): # Function to check for winner.
-    pass
+    if count >= 3:
+        check()
 
-def refresh(): # Function to clear the board and message board.
-    global player, count
+def check(): # Function to check for winner.
+    winner_symbol = "" # for winner popup.
+    t = 'text' # var to make things easier.
+
+    global winner
+    if btn1[t] == btn2[t] == btn3[t] != " ": # Across row 1
+        winner = True
+        winner_symbol = btn1[t]
+        btn1.config(bg='red')
+        btn2.config(bg='red')
+        btn3.config(bg='red')
+    elif btn4[t] == btn5[t] == btn6[t] != " ": # Across row 2
+        winner = True
+        winner_symbol = btn4[t]
+        btn4.config(bg='red')
+        btn5.config(bg='red')
+        btn6.config(bg='red')
+    elif btn7[t] == btn8[t] == btn9[t] != " ": # Across row 3
+        winner = True
+        winner_symbol = btn7[t]
+        btn7.config(bg='red')
+        btn8.config(bg='red')
+        btn9.config(bg='red')
+    elif btn1[t] == btn4[t] == btn7[t] != " ": # Down column 1
+        winner = True
+        winner_symbol = btn1[t]
+        btn1.config(bg='red')
+        btn4.config(bg='red')
+        btn7.config(bg='red')
+    elif btn2[t] == btn5[t] == btn8[t] != " ": # Down column 2
+        winner = True
+        winner_symbol = btn2[t]
+        btn2.config(bg='red')
+        btn5.config(bg='red')
+        btn8.config(bg='red')
+    elif btn3[t] == btn6[t] == btn9[t] != " ": # Down column 3
+        winner = True
+        winner_symbol = btn3[t]
+        btn3.config(bg='red')
+        btn6.config(bg='red')
+        btn9.config(bg='red')
+    elif btn1[t] == btn5[t] == btn9[t] != " ": # Diagonal 1-5-9
+        winner = True
+        winner_symbol = btn1[t]
+        btn1.config(bg='red')
+        btn5.config(bg='red')
+        btn9.config(bg='red')
+    elif btn3[t] == btn5[t] == btn7[t] != " ": # Diagonal 3-5-7
+        winner = True
+        winner_symbol = btn3[t]
+        btn3.config(bg='red')
+        btn5.config(bg='red')
+        btn7.config(bg='red')
+    if winner: # if there is a winner, display popup.
+        text = "Congratulations!\n\n  Player '{}' Wins!".format(winner_symbol)
+        messagebox.showinfo("Winner!", text)
+        for btn in btn_list:
+            btn['state'] = DISABLED
+
+def refresh(): # Function to clear the board.
+    global player, count, winner
 
     count = 0
     player = default_sym
+    winner = False
 
-    for widget in msg_frame.winfo_children():
-        widget.destroy()
-
-    for btn in btn_list:
+    for btn in btn_list: #
         btn['text'] = " "
+        btn['bg'] = 'white'
+        btn['state'] = ACTIVE
 
 
 
@@ -56,7 +118,7 @@ def refresh(): # Function to clear the board and message board.
 root = Tk()
 root.title(program_title)
 root_x = 432 # Do Not Change
-root_y = 503 # Do Not Change
+root_y = 380 # Do Not Change
 root.geometry("{}x{}".format(root_x, root_y))
 root.resizable(width=False, height=False) # Stops user from resizes window.
 
@@ -64,17 +126,8 @@ root.resizable(width=False, height=False) # Stops user from resizes window.
 menu_bar = Menu(root)
 root.config(menu=menu_bar)
 
-menu_bar.add_command(label="Refresh Board", command=refresh)
+menu_bar.add_command(label="New Game!", command=refresh)
 
-
-
-
-# Creating Message Frame
-msg_frame = Frame(root, bg='light blue', width=100, height=120)
-msg_frame.pack(fill="both", expand=1)
-
-separator = ttk.Separator(root, orient='horizontal')
-separator.pack(fill='x')
 
 # Creating Main Frame
 board_frame = Frame(root, bg='black', width = 425, height=380)
@@ -87,6 +140,14 @@ relief = FLAT # relief style for Buttons.
 overr = SUNKEN # overrelief style for Buttons.
 width = 8 # Do Not Change
 height = 3 # Do Not Change
+
+
+########### Board set up ###########
+'''
+1,2,3
+4,5,6
+7,8,9
+'''
 
 # Creating Buttons for board
 btn1 = Button(board_frame, text=" ", font=font, width=width, height=height, relief=relief, overrelief=overr, command = lambda: clicked(btn1)) # Row 1
@@ -117,7 +178,7 @@ btn8.grid(row=2, column=1, padx=(2,2), pady=(2,5))
 btn9.grid(row=2, column=2, padx=(2,2), pady=(2,5))
 
 
-
+check()
 
 
 root.mainloop()
