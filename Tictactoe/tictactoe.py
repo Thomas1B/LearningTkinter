@@ -8,6 +8,7 @@ os.system("clear") # clears terminal
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as mb
+import sys
 
 
 ################### Gloabal Variables ###################
@@ -101,6 +102,19 @@ def check(): # Function to check for winner.
         response = mb.askquestion("Winner!", text)
         if response == "yes":
             refresh() # begin a new game.
+        else:
+            sys.exit()
+
+    elif count == 9 and not winner:
+        for btn in btn_list:
+            btn['state'] = DISABLED
+
+        text = "Tie! No Winner! \n\n\n Play Again?"
+        response = mb.askquestion("Tie", text)
+        if response == "yes":
+            refresh() # begin a new game.
+        else:
+            sys.exit()
 
 def refresh(): # Function to clear the board. (New Game)
     global player, count, winner
