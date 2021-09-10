@@ -14,41 +14,41 @@ from mutagen.mp3 import MP3
 
 ##################### Global Variables #####################
 
+
 # Global variable to hold parts that need to be stripped, see add_song() and add_songs.
-global replace_part1
-replace_part1 = "C:/Users/thoma/OneDrive/University/PythonStuff/LearningTKinter/MP3player_App/music/"
+music_path = "C:/Users/thoma/Music/" # Change to your music folder path.
+
 
 # Global variable to hold filepath where mp3 files are stored.
 # Using String format() Method.
-global music_filepath
-music_filepath = replace_part1 + "{}.mp3"
+music_filepath = music_path + "{}.mp3"
 
 # Creating Pause variable, see pause().
-global paused
 paused = False
 
 # Creating stpo variable, see stop().
-global stopped
 stopped = False
 
 ##################### Functions #####################
 
 def add_song(): # adds a song to the playlist
-    new_song = fd.askopenfilename(initialdir="music/", title="MP3 Player - Adding One Song", filetypes=(("Mp3 Files","*.mp3"), ))
+    new_song = fd.askopenfilename(initialdir=music_path, title="MP3 Player - Adding One Song", filetypes=(("Mp3 Files","*.mp3"), ))
 
-    # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
-    new_song = new_song.replace(replace_part1, "")
-    new_song = new_song.replace(".mp3", "")
-    playlist_box.insert(END, new_song)
+    if new_song:
+        # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
+        new_song = new_song.replace(music_path, "")
+        new_song = new_song.replace(".mp3", "")
+        playlist_box.insert(END, new_song)
 
 def add_songs(): # adds many songs to the playlist
-    new_songs = fd.askopenfilenames(initialdir="music/", title="MP3 Player - Adding Many Songs", filetypes=(("Mp3 Files","*.mp3"), ))
+    new_songs = fd.askopenfilenames(initialdir=music_path, title="MP3 Player - Adding Many Songs", filetypes=(("Mp3 Files","*.mp3"), ))
 
-    # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
-    for song in new_songs:
-        song = song.replace(replace_part1, "")
-        song = song.replace(".mp3", "")
-        playlist_box.insert(END, song)
+    if new_songs:
+        # Changing name of new_song to a simplier one. Since askopenfilename return entire FilePath.
+        for song in new_songs:
+            song = song.replace(music_path, "")
+            song = song.replace(".mp3", "")
+            playlist_box.insert(END, song)
 
 def delete_song(): # Function to delete one song from playlist
     playlist_box.delete(ANCHOR)
@@ -163,7 +163,7 @@ def play_time(): # Function to deal with time dependent things, (status_bar, son
     # Converting current_time into time format.
     formatted_time = time.strftime("%M:%S", time.gmtime(current_time))
 
-    song = song.replace(replace_part1, "")
+    song = song.replace(music_path, "")
     song = song.replace(".mp3", "")
 
     if int(song_slider.get()) == int(song_length) :
@@ -185,6 +185,7 @@ def play_time(): # Function to deal with time dependent things, (status_bar, son
         # Updating status_bar
         text = "{}: {} / {}  ".format(song, formatted_time, formatted_length)
         status_bar.config(text=text)
+
 
     # runs play_time() every 1 second.
     status_bar.after(1000, play_time)
